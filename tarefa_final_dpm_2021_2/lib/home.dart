@@ -18,7 +18,6 @@ class _HomeState extends State<Home> {
 
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-    String _infoText = "Informe as notas!";
     double nota1 = 0.0;
     double nota2 = 0.0;
     double nota3 = 0.0;
@@ -32,10 +31,9 @@ class _HomeState extends State<Home> {
         double nota2 = double.parse(nota2Controller.text);
         double nota3 = double.parse(nota3Controller.text);
         double media = (nota1 + nota2 + nota3) / 3;
-        mediaController.text = media.toString();
+        mediaController.text = media.toStringAsPrecision(3);
       });
-    }
-    
+    }    
 
     void _limpaCampos(){
       nota1Controller.text = "";
@@ -46,7 +44,6 @@ class _HomeState extends State<Home> {
       mediaController.text = "";
 
       setState(() {
-        _infoText = "Informe seus dados!";
         _formKey = GlobalKey<FormState>();
       });    
     }
@@ -65,21 +62,20 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-                Divider(),
+                Divider(color: Colors.transparent),
                 Text("CALCULADOR DE MÉDIA", style: 
                   TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,), 
                   textAlign: TextAlign.left,
                 ),
-                Divider(),
+                Divider(color: Colors.transparent),
                 TextFormField(
                       controller: nomeController,
-                      obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'NOME',
                         labelStyle: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.0,
+                        fontSize: 15.0,
                 ),
                 ),
                   validator: (value){
@@ -88,15 +84,14 @@ class _HomeState extends State<Home> {
                     }
                   }
                 ),
-                Divider(),
+                Divider(color: Colors.transparent),
                 TextFormField(
-                      obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'E-MAIL',
                         labelStyle: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.0,
+                        fontSize: 15.0,
                 ),
                       ),
                       controller: emailController,
@@ -105,20 +100,23 @@ class _HomeState extends State<Home> {
                       return "Digite o e-mail do Aluno!";
                     }
                   }
-                ),
-                Divider(),
-                  TextFormField(
+              ),
+              Divider(color: Colors.transparent),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Flexible(child: TextFormField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Nota 1",
                 labelStyle: TextStyle(
                   color: Colors.black,
-                  fontSize: 18.0,
+                  fontSize: 15.0,
                 ),
               ),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 25.0),
+              style: TextStyle(color: Colors.black, fontSize: 20.0),
               controller: nota1Controller,
               validator: (value){
                 if(value!.isEmpty){
@@ -126,19 +124,19 @@ class _HomeState extends State<Home> {
                 }
               },
             ),
-                  Divider(),
-                  TextFormField(
+            ),
+            Flexible(child: TextFormField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Nota 2",
                 labelStyle: TextStyle(
                   color: Colors.black,
-                  fontSize: 18.0,
+                  fontSize: 15.0,
                 ),
               ),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 25.0),
+              style: TextStyle(color: Colors.black, fontSize: 20.0),
               controller: nota2Controller,
               validator: (value){
                 if(value!.isEmpty){
@@ -146,19 +144,19 @@ class _HomeState extends State<Home> {
                 }
               },
             ),
-                  Divider(),
-                  TextFormField(
+            ),
+            Flexible(child: TextFormField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Nota 3",
                 labelStyle: TextStyle(
                   color: Colors.black,
-                  fontSize: 18.0,
+                  fontSize: 15.0,
                 ),
               ),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 25.0),
+              style: TextStyle(color: Colors.black, fontSize: 20.0),
               controller: nota3Controller,
               validator: (value){
                 if(value!.isEmpty){
@@ -166,7 +164,10 @@ class _HomeState extends State<Home> {
                 }
               },
             ),
-              Divider(),
+            ),
+                ],
+              ),
+              Divider(color: Colors.transparent),
               ElevatedButton(onPressed: (){
                 if(_formKey.currentState!.validate()){
                   _calculaMedia();
@@ -189,7 +190,7 @@ class _HomeState extends State<Home> {
               Text("Média: " + mediaController.text,
                 style: TextStyle(fontSize: 18.0,), 
                   textAlign: TextAlign.left,),
-              Divider(),
+              Divider(color: Colors.transparent),
               ElevatedButton(onPressed: (){
                 if(_formKey.currentState!.validate()){
                   _limpaCampos();
